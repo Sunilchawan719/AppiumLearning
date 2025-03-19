@@ -13,10 +13,12 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import static org.testng.Assert.assertTrue;
+
 public class AppiumBasics {
 
     @Test
-    public void appiumTest() throws IOException, URISyntaxException {
+    public void appiumTest() throws IOException, URISyntaxException, InterruptedException {
 
         // Set up Android Driver
         //Appium Code > Appium Server > Mobile
@@ -27,7 +29,7 @@ public class AppiumBasics {
         service.start(); */
 
         UiAutomator2Options options = new UiAutomator2Options();
-        options.setDeviceName("Pixel 4");   //Device Name - RZCWA12A1BJ, samsung SM-A346E
+        options.setDeviceName("Pixel 2");   //Device Name - RZCWA12A1BJ, samsung SM-A346E
         options.setApp("C:\\Users\\Sunil\\Downloads\\QATestApp-1.1.apk");
         options.setAutomationName("UiAutomator2");
 
@@ -39,11 +41,18 @@ public class AppiumBasics {
         driver.findElement(By.id("com.qatestapp:id/emailTextField1")).sendKeys("helloworld@gmail.com");
         driver.findElement(AppiumBy.id("com.qatestapp:id/passwordTextField")).sendKeys("testing1234");
         driver.findElement(AppiumBy.xpath("//android.widget.Button[@resource-id=\"com.qatestapp:id/LoginButton\"]")).click();
-
+        Thread.sleep(5000);
+        driver.findElement(AppiumBy.id("com.qatestapp:id/nameTextField")).sendKeys("Sunil");
+        driver.findElement(AppiumBy.id("com.qatestapp:id/emailTextField")).sendKeys("sunil.chawan@healthgraph.in");
+        driver.findElement(AppiumBy.id("com.qatestapp:id/phoneNumberTextField")).sendKeys("8867129876");
+        driver.findElement(AppiumBy.id("com.qatestapp:id/subscribeCheckbox")).click();
+        boolean bCancellButton = driver.findElement(By.id("com.qatestapp:id/button1")).isDisplayed();
+        assertTrue(bCancellButton, "Cancel Button is displayed");
+        driver.findElement(AppiumBy.id("com.qatestapp:id/button2")).click();
 
         // Close the driver properly
-     //   driver.quit();
-      //  service.stop();
+        driver.quit();
+        //  service.stop();
 
     }
 }
