@@ -5,6 +5,7 @@ import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.testng.annotations.AfterClass;
@@ -68,12 +69,25 @@ public class BaseTest {
         driver.executeScript("mobile: clickGesture", params);
     }
 
-    public void DragAndDropAction(WebElement source, WebElement target) {
+ /*   public void DragAndDropAction(WebElement source, WebElement target) {
         System.out.println("Performing drag and drop action...");
         // Perform drag and drop action
         ((JavascriptExecutor) driver).executeScript("mobile: dragGesture", ImmutableMap.of(
                 "elementId", ((RemoteWebElement) source).getId(), "toX", ((RemoteWebElement) target).getId(), "toY", 0.5));
+    }*/
+
+    public void DragAndDropAction(WebElement source, WebElement target) {
+        Map<String, Object> args = new HashMap<>();
+        args.put("elementId", ((RemoteWebElement) source).getId());
+
+        // Get target location
+        Point targetLocation = target.getLocation();
+        args.put("endX", targetLocation.getX());
+        args.put("endY", targetLocation.getY());
+
+        driver.executeScript("mobile: dragGesture", args);
     }
+
 
     public void selectCheckboxIfNotSelected(WebElement checkbox, String day) throws InterruptedException {
         String isChecked = checkbox.getAttribute("checked");

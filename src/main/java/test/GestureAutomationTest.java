@@ -47,8 +47,6 @@ public class GestureAutomationTest extends BaseTest {
         Thread.sleep(5000);
 
         // Performing Scroll on element
-     //   ScrollAction(oPage_ApiDemosApp.button_WebView3, "down");
-    //    Thread.sleep(5000);
         scrollToElement(driver, "WebView3");
         System.out.println("Scroll is performed on WebView3");
 
@@ -58,7 +56,6 @@ public class GestureAutomationTest extends BaseTest {
             System.out.println("WebView3 is not displayed");
         }
 
-       // ScrollAction(oPage_ApiDemosApp.button_Animation, "up");
         Thread.sleep(5000);
         scrollToElement(driver, "Animation");
         System.out.println("Scroll is performed on Animation");
@@ -162,7 +159,7 @@ public class GestureAutomationTest extends BaseTest {
         // Performing Tap on element
         TapAction(oPage_ApiDemosApp.button_Flip);
         Thread.sleep(4000);
-        System.out.println("Tap is performed on ViewFlip");
+        System.out.println("Tap is performed on Flip");
 
         System.out.println("Tap test completed.");
     }
