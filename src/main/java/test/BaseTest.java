@@ -1,6 +1,7 @@
 package test;
 
 import com.google.common.collect.ImmutableMap;
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import org.openqa.selenium.JavascriptExecutor;
@@ -13,6 +14,8 @@ import pages.Page_ApiDemosApp;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BaseTest {
 
@@ -47,6 +50,11 @@ public class BaseTest {
                 "direction", direction));
     }
 
+    public void scrollToElement(AndroidDriver driver, String text) {
+        driver.findElement(AppiumBy.androidUIAutomator(
+                "new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\"" + text + "\"))"));
+    }
+
     public void SwipeAction(WebElement ele) {
         System.out.println("Performing swipe action...");
         // Perform swipe action
@@ -54,12 +62,10 @@ public class BaseTest {
                 "elementId", ((RemoteWebElement) ele).getId(), "direction", "left", "percent", 0.75));
     }
 
-    public void TapAction(WebElement ele) {
-        System.out.println("Performing tap action...");
-        // Perform tap action
-        ((JavascriptExecutor) driver).executeScript("mobile: tapGesture", ImmutableMap.of(
-                "elementId", ((RemoteWebElement) ele).getId(),
-                "tapCount", 1));
+    public void TapAction(WebElement element) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("elementId", ((RemoteWebElement) element).getId());
+        driver.executeScript("mobile: clickGesture", params);
     }
 
     public void DragAndDropAction(WebElement source, WebElement target) {
